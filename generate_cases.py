@@ -1,12 +1,11 @@
 # NOTE: reordering random draws in this file changes the generated data.
-"""Makes synthetic invoice-dispute data: CRM quotes, ERP billing agreements and
-invoices, BI billing history, tickets and ground truth. All data is invented.
-A billing agreement is any standing arrangement a customer is billed under.
+# Makes synthetic invoice-dispute data: CRM quotes, ERP billing agreements and invoices, BI billing history, tickets and ground truth. All data is invented.
+# A billing agreement is any standing arrangement a customer is billed under.
  
-Usage: python generate_cases.py
-Makes all three data folders listed in DATASETS below: the messy data, the clean
-data (messiness 0) and the drift data (price rise from DRIFT_DATE).
-"""
+# Usage: python generate_cases.py
+# Makes all three data folders listed in DATASETS below: the messy data, the clean
+#data (messiness 0) and the drift data (price rise from DRIFT_DATE).
+
 import os
 from datetime import date, timedelta
  
