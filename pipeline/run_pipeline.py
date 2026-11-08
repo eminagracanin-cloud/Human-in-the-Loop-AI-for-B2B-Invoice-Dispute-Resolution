@@ -1,4 +1,4 @@
-"""Chains the three stages for one disputed invoice, or for a list of them."""
+"Chains the three stages for one disputed invoice, or for a list of them."
 import numpy as np
 
 from pipeline.settings import TIE_SEED, default_config
@@ -8,7 +8,6 @@ from pipeline.stage3_root_cause import root_cause
 
 
 def run_pipeline(invoice_id, data, tie_rng=None, config=None):
-    """config is a dict like settings.default_config(); None means the settings file."""
     s1 = first_glance(invoice_id, data)
     s2 = history_check(invoice_id, data, tie_rng, config)
     s3 = root_cause(invoice_id, data, s1, s2, config)
@@ -16,9 +15,6 @@ def run_pipeline(invoice_id, data, tie_rng=None, config=None):
 
 
 def run_all(invoice_ids, data, config=None):
-    """Runs every invoice with one seeded random generator for start-date
-    ties. Ties are drawn in the order given, so the same data and the same
-    order always give the same result."""
     if config is None:
         config = default_config()
     tie_rng = np.random.RandomState(TIE_SEED)
