@@ -1,5 +1,5 @@
-"Stage 1 - First glance. Practitioners first open the invoice and check whether anything looks suspicious. This stage only looks at the invoice itself (plus what a
-normal price for that product looks like). It never decides anything; it only raises flags that later stages can use."
+# Stage 1 - First glance. Practitioners first open the invoice and check whether anything looks suspicious. This stage only looks at the invoice itself (plus what a
+# normal price for that product looks like). It never decides anything; it only raises flags that later stages can use.
 
 from pipeline.settings import PRICE_JUMP, AMOUNT_TOLERANCE
 
