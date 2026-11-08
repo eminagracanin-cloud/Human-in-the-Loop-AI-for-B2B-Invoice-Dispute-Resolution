@@ -1,5 +1,4 @@
-"""Stage 2 - History check: compares the invoice with earlier billing and looks
-for a second billing agreement for the same thing. Reports flags, never decides."""
+"Stage 2 - History check: compares the invoice with earlier billing and looks for a second billing agreement for the same thing. Reports flags, never decides."
 
 import numpy as np
 
@@ -12,7 +11,6 @@ def start_date_of(agreement_id, agreements):
 
 
 def uplift_factor(period_start, documented_uplifts):
-    """Combined factor of the documented price uplifts in force for this period."""
     period_text = str(period_start.date())          # "YYYY-MM-DD" compares in date order
     factor = 1.0
     for effective_date, uplift in documented_uplifts:
@@ -30,8 +28,6 @@ def check_past_billing(row, history, flags, evidence, config):
         flags.append("no_history")
         return
 
-    # A customer has one fixed price that does not change by itself, so the
-    # reference is either the usual (median) or the latest billed price.
     if config["history_reference"] == "most_recent":
         latest = past.sort_values("period_start").iloc[-1]
         hist_price = float(latest["unit_price"])
@@ -40,7 +36,6 @@ def check_past_billing(row, history, flags, evidence, config):
         hist_price = float(past["unit_price"].median())
         hist_qty = float(past["qty"].median())
 
-    # A documented, announced uplift is a legitimate change of the price.
     factor = uplift_factor(row["period_start"], config["documented_uplifts"])
     expected_price = hist_price * factor
     price_dev = (row["unit_price"] - expected_price) / expected_price
@@ -68,7 +63,6 @@ def check_second_agreement(row, invoices, agreements, flags, evidence, tie_rng):
     row_start = start_date_of(row["agreement_id"], agreements)
     other_start = start_date_of(other["agreement_id"], agreements)
 
-    # The oldest start date is the real agreement, per the interviews.
     tie = row_start == other_start
     if tie:
         # Same start date: the rule cannot decide. Pick at random, never by
@@ -95,7 +89,6 @@ def check_second_agreement(row, invoices, agreements, flags, evidence, tie_rng):
 
 
 def check_other_periods(row, invoices, flags, evidence):
-    # The same agreement billed for another period is a normal renewal.
     same_agreement = invoices[(invoices["agreement_id"] == row["agreement_id"])
                               & (invoices["invoice_id"] != row["invoice_id"])
                               & (invoices["period_start"] != row["period_start"])]
