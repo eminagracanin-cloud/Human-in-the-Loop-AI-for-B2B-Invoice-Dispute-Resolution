@@ -1,18 +1,11 @@
-"""Stage 3 - Root cause. Proposes an outcome from the evidence of stages 1 and 2.
-Stage 1 flags are copied into the evidence but never change the outcome.
-
-Two rule sets, chosen by RULES_VERSION in pipeline/settings.py:
-  baseline  five simple rules (no no-history rule, no check of when the CRM was edited)
-  v2        the practitioners' rules, from the interviews: it first works out
-            whether the invoice is a new (one-off) order or an existing one
-"""
+"Stage 3 - Root cause. Proposes an outcome from the evidence of stages 1 and 2."
 
 from pipeline.settings import (OVERBILLED_TOLERANCE, CRM_ERP_PRICE_TOLERANCE,
                                CRM_ERP_QTY_TOLERANCE, default_config)
 
-# Practitioners handle a start-date tie this way, so either invoice is a correct credit.
+
 TIE_NOTE = "credit one, close that agreement, keep the other active"
-# v2 notes, in the practitioners' words.
+
 NO_HISTORY_NOTE = "no history: check the customer's other tickets and ask colleagues"
 EXISTING_DISAGREE_NOTE = ("existing order: could be human error, invalid cancellation, "
                           "transfer or system error")
@@ -45,9 +38,6 @@ def check_duplicate(s2, data, evidence):
     if found["start_date_tie"]:
         note = TIE_NOTE
 
-    # One CRM quote behind both agreements means the sync made a copy, which
-    # the data proves. Two quotes means a person made a second one, which the
-    # data cannot explain, so the rep on the second quote is asked.
     if legit_quote["quote_id"] == dup_quote["quote_id"]:
         return make_result(
             "credit_system_error", "1_duplicate_same_quote",
@@ -69,8 +59,7 @@ def check_renewal(s2, evidence):
 
 
 def check_overbilled(invoice, quote, evidence):
-    # Rule 3: the CRM is what was agreed, so billing more than CRM price
-    # times CRM quantity is a system error the data can prove.
+    # Rule 3: the CRM is what was agreed, so billing more than CRM price times CRM quantity is a system error the data can prove.
     crm_amount = round(quote["crm_price"] * quote["crm_qty"], 2)
     gap = round(invoice["amount"] - crm_amount, 2)
     evidence["crm_amount"] = float(crm_amount)
@@ -84,8 +73,7 @@ def check_overbilled(invoice, quote, evidence):
 
 
 def check_history_deviation(invoice, quote, s2, evidence):
-    # Rule 4: CRM and ERP agree but both differ from past billing. Only the
-    # rep knows whether that was intended, so the rep is asked.
+    # Rule 4: CRM and ERP agree but both differ from past billing. Only the rep knows whether that was intended, so the rep is asked.
     same_price = abs(quote["crm_price"] - invoice["unit_price"]) < CRM_ERP_PRICE_TOLERANCE
     same_qty = abs(quote["crm_qty"] - invoice["qty"]) <= CRM_ERP_QTY_TOLERANCE
     if not (same_price and same_qty):
@@ -123,7 +111,6 @@ def root_cause_baseline(invoice, quote, data, s1, s2):
 # ----------------------------------------------------------------- version 2
 
 def crm_and_erp_disagree(invoice, quote, evidence):
-    """True if price or quantity differs between the CRM quote and the invoice."""
     crm_amount = round(quote["crm_price"] * quote["crm_qty"], 2)
     gap = round(invoice["amount"] - crm_amount, 2)
     evidence["crm_amount"] = float(crm_amount)
@@ -138,7 +125,6 @@ def root_cause_v2(invoice, quote, data, s1, s2):
     evidence = {"stage1_flags": list(s1["flags"]), "quote_id": quote["quote_id"],
                 "rep_on_quote": quote["sales_rep_id"]}
 
-    # Duplicates and renewals first, as in the baseline.
     result = check_duplicate(s2, data, evidence)
     if result is not None:
         return result
@@ -148,13 +134,9 @@ def root_cause_v2(invoice, quote, data, s1, s2):
 
     disagree, gap = crm_and_erp_disagree(invoice, quote, evidence)
 
-    # A new (one-off) order is the first invoice on its agreement, so it has
-    # no billing history.
     if "no_history" in s2["flags"]:
         evidence["order_type_found"] = "new"
         if disagree:
-            # Nothing is edited in place on a one-off order, so a difference
-            # between CRM and ERP is a sync error.
             credit = 0.0
             if gap > 0:
                 credit = float(gap)
@@ -166,16 +148,12 @@ def root_cause_v2(invoice, quote, data, s1, s2):
                            "New order, CRM and ERP agree, and there is no history.",
                            evidence, escalate_to=quote["sales_rep_id"], note=NO_HISTORY_NOTE)
 
-    # An existing order is a recurring agreement. Its CRM quote is edited in
-    # place and re-synced, so a difference could have several causes.
     evidence["order_type_found"] = "existing"
     if disagree:
         return make_result("escalate_to_sales_rep", "v2_existing_order_disagree",
                            "Existing order: CRM and ERP disagree.", evidence,
                            escalate_to=quote["sales_rep_id"], note=EXISTING_DISAGREE_NOTE)
 
-    # CRM and ERP agree. A customer has one fixed price that does not change
-    # by itself, so any difference from history goes to the rep.
     differs = ("price_differs_from_history" in s2["flags"]
                or "qty_differs_from_history" in s2["flags"])
     if differs:
