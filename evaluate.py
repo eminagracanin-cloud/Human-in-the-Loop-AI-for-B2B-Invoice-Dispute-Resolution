@@ -1,7 +1,7 @@
-"""Scores the pipeline against the ground truth: baseline rules versus v2 rules,
-on each data folder, with breakdowns and a sensitivity table. CSVs go to results/.
-Usage: python evaluate.py   (the folders and the rule versions are set below)
-"""
+#Scores the pipeline against the ground truth: baseline rules versus v2 rules,
+#on each data folder, with breakdowns and a sensitivity table. CSVs go to results/.
+#Usage: python evaluate.py   (the folders and the rule versions are set below)
+
 import os
 
 import pandas as pd
