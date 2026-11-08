@@ -1,5 +1,0 @@
-data,rules,n,resolved,resolved_pct,correct,correct_pct,escalated
-synthetic_data,baseline,300,186,62.0,170,91.4,114
-synthetic_data,v2,300,94,31.3,92,97.9,206
-synthetic_data_clean,baseline,300,201,67.0,195,97.0,99
-synthetic_data_clean,v2,300,115,38.3,115,100.0,185

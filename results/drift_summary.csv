@@ -1,7 +1,0 @@
-run,period,n,exact_pct,over_escalation_pct
-no price increase (control),before,157,64.3,5.7
-no price increase (control),after,143,66.4,4.9
-"price increase, system not told",before,157,64.3,5.7
-"price increase, system not told",after,143,57.3,14.0
-"price increase, system told",before,157,64.3,5.7
-"price increase, system told",after,143,66.4,4.9
