@@ -1,4 +1,4 @@
-"Chains the three stages for one disputed invoice, or for a list of them."
+# Chains the three stages for one disputed invoice, or for a list of them.
 import numpy as np
 
 from pipeline.settings import TIE_SEED, default_config
