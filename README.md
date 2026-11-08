@@ -64,6 +64,8 @@ numbers. Nothing else needs to change. Make your changes in these files:
   price uplifts, the tie seed, the credit tolerance used by `evaluate.py`, and the
   automation-bias test parameters.
 
+If you want different rules, edit pipeline/stage3_root_cause.py. 
+
 Only two values come from the interviews: the split between new and existing orders
 (about 10/90) and the share of cases without billing history (about 1 percent). Both are
 my estimates, not measured rates. All other values are placeholders and should be replaced
