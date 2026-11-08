@@ -1,4 +1,4 @@
-"Stage 2 - History check: compares the invoice with earlier billing and looks for a second billing agreement for the same thing. Reports flags, never decides."
+# Stage 2 - History check: compares the invoice with earlier billing and looks for a second billing agreement for the same thing. Reports flags, never decides.
 
 import numpy as np
 
