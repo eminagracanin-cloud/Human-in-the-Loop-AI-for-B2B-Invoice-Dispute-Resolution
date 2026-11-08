@@ -1,15 +1,15 @@
-"""Drift test: a known invoicing rule changes, and the pipeline has to cope.
+# Drift test: a known invoicing rule changes, and the pipeline has to cope.
 
-From the drift date, existing agreements get an announced 5 percent price rise in the
-CRM, the ERP and the invoices, while the billing history keeps the old prices
-(see DATASETS in generate_cases.py). Makes three runs of the v2 rules, by invoice month:
-  control   synthetic_data (no drift)
-  drift     synthetic_data_price increase, system not told in the pipeline
-  uplift    synthetic_data_drift, uplift documented in DOCUMENTED_UPLIFTS
+#From the drift date, existing agreements get an announced 5 percent price rise in the
+#CRM, the ERP and the invoices, while the billing history keeps the old prices
+#(see DATASETS in generate_cases.py). Makes three runs of the v2 rules, by invoice month:
+  #control   synthetic_data (no drift)
+  #drift     synthetic_data_price increase, system not told in the pipeline
+  #uplift    synthetic_data_drift, uplift documented in DOCUMENTED_UPLIFTS
 
-Usage: python drift_test.py
-(create the data first: python generate_cases.py makes synthetic_data_drift too)
-"""
+#Usage: python drift_test.py
+#(create the data first: python generate_cases.py makes synthetic_data_drift too)
+
 import os
 
 import matplotlib.pyplot as plt
