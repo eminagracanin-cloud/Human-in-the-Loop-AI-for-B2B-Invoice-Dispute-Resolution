@@ -1,0 +1,6 @@
+corruption,corrupted,careful_catch_pct,skimming_catch_pct
+wrong_amount,320,74.1,43.1
+wrong_invoice,296,58.4,36.1
+wrong_target,2039,51.2,30.2
+contradicts_evidence,3345,89.5,50.9
+ALL,6000,74.1,42.8

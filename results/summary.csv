@@ -1,0 +1,5 @@
+data,rules,n,exact,exact_pct,safe_escalation,false_credit,over_escalation,missed_error,credit_detail_wrong
+synthetic_data,baseline,300,268,89.3,0,9,16,7,0
+synthetic_data,v2,300,196,65.3,86,1,16,1,0
+synthetic_data_clean,baseline,300,294,98.0,0,0,0,6,0
+synthetic_data_clean,v2,300,220,73.3,80,0,0,0,0
