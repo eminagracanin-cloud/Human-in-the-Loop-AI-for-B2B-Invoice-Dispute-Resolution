@@ -1,5 +1,5 @@
-"Settings for the pipeline: every threshold is in this file. The numbers are placeholders, so replace them with your own. None of them come from the interviews. 
-"The matching settings for the data generator are at the top of generate_cases.py."
+# Settings for the pipeline: every threshold is in this file. The numbers are placeholders, so replace them with your own. None of them come from the interviews. 
+# The matching settings for the data generator are at the top of generate_cases.py.
  
 # Stage 1: first glance
 PRICE_JUMP = 3.0                # flag a price above this many times the product's usual price
