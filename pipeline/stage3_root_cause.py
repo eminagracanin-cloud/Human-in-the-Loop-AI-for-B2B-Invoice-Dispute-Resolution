@@ -108,7 +108,7 @@ def root_cause_baseline(invoice, quote, data, s1, s2):
                        "No rule found a problem.", evidence)
 
 
-# ----------------------------------------------------------------- version 2
+#Version 2
 
 def crm_and_erp_disagree(invoice, quote, evidence):
     crm_amount = round(quote["crm_price"] * quote["crm_qty"], 2)
@@ -164,7 +164,7 @@ def root_cause_v2(invoice, quote, data, s1, s2):
                        "CRM, ERP and history agree.", evidence)
 
 
-# ---------------------------------------------------------------------- entry
+#Entry
 
 def root_cause(invoice_id, data, s1, s2, config=None):
     if config is None:
