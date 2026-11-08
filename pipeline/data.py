@@ -1,4 +1,4 @@
-"Load the source-system tables from the synthetic data folder."
+# Load the source-system tables from the synthetic data folder.
 import pandas as pd
 
 
