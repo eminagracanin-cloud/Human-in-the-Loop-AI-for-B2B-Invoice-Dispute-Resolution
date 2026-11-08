@@ -1,6 +1,4 @@
-"""Run the whole pipeline on one disputed invoice.
-Change INVOICE_ID below to look at another invoice.
-"""
+# Run the whole pipeline on one disputed invoice. Change INVOICE_ID below to look at another invoice.
 import json
 
 from pipeline.data import load
