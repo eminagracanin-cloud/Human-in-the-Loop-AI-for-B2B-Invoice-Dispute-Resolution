@@ -1,4 +1,4 @@
-"Stage 3 - Root cause. Proposes an outcome from the evidence of stages 1 and 2."
+# Stage 3 - Root cause. Proposes an outcome from the evidence of stages 1 and 2.
 
 from pipeline.settings import (OVERBILLED_TOLERANCE, CRM_ERP_PRICE_TOLERANCE,
                                CRM_ERP_QTY_TOLERANCE, default_config)
